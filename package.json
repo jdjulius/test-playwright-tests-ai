@@ -1,0 +1,27 @@
+{
+  "name": "test-playwright-tests-ai",
+  "version": "1.0.0",
+  "description": "Ejemplo de automatización de pruebas con Playwright y tests-ai usando lenguaje natural e IA",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:ui": "playwright test --ui",
+    "test:report": "playwright show-report"
+  },
+  "keywords": [
+    "playwright",
+    "tests-ai",
+    "ai",
+    "testing",
+    "automation",
+    "natural-language"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.57.0",
+    "tests-ai": "^1.0.10"
+  }
+}
