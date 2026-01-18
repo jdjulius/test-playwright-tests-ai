@@ -88,9 +88,29 @@ await ai("Marca la primera tarea como completada", { page, test });
 
 ## 🧪 Ejecutar las Pruebas
 
+### Pruebas sin API Key (Demo Local)
+
+Si quieres probar Playwright sin configurar la API de Anthropic primero:
+
 ```bash
-# Ejecutar pruebas en modo headless
+# Ejecutar solo las pruebas de la demo local (sin IA)
+npx playwright test tests/demo-local.spec.ts
+
+# Con interfaz visible
+npx playwright test tests/demo-local.spec.ts --headed
+```
+
+### Pruebas con tests-ai (requiere API Key)
+
+Una vez configurada tu `ANTHROPIC_API_KEY`:
+
+```bash
+# Ejecutar todas las pruebas
 npm test
+
+# Ejecutar solo las pruebas con IA
+npx playwright test tests/todo.spec.ts
+npx playwright test tests/demo-local-ai.spec.ts
 
 # Ejecutar con interfaz gráfica visible
 npm run test:headed
@@ -106,21 +126,41 @@ npm run test:report
 
 ```
 test-playwright-tests-ai/
+├── demo/
+│   └── index.html            # Demo HTML local para pruebas sin internet
 ├── tests/
-│   └── todo.spec.ts          # Ejemplo de pruebas con tests-ai
+│   ├── todo.spec.ts          # Ejemplos con tests-ai (TodoMVC)
+│   ├── demo-local.spec.ts    # Pruebas básicas sin IA (demo local)
+│   └── demo-local-ai.spec.ts # Pruebas con IA (demo local)
 ├── playwright.config.ts       # Configuración de Playwright
 ├── package.json              # Dependencias y scripts
 ├── .env.example              # Plantilla de variables de entorno
+├── GUIA_RAPIDA.md            # Guía rápida en español
 └── README.md                 # Este archivo
 ```
 
 ## 🎯 Casos de Uso Incluidos
 
-El archivo `tests/todo.spec.ts` incluye tres ejemplos realistas:
+### Con tests-ai (requiere API Key):
 
+**`tests/todo.spec.ts`** - Ejemplos con TodoMVC (requiere internet):
 1. **Agregar una tarea**: Demuestra cómo usar IA para escribir y agregar elementos
 2. **Marcar como completada**: Muestra cómo interactuar con checkboxes usando lenguaje natural
 3. **Filtrar tareas**: Ejemplo de navegación y filtrado usando IA
+
+**`tests/demo-local-ai.spec.ts`** - Ejemplos con demo local (sin internet):
+1. Interacción con formularios usando IA
+2. Marcar elementos como completados
+3. Limpiar formularios con lenguaje natural
+
+### Sin tests-ai (no requiere API Key):
+
+**`tests/demo-local.spec.ts`** - Pruebas básicas de Playwright:
+1. Verificar carga de página
+2. Interacción con formularios usando selectores tradicionales
+3. Marcar checkboxes de forma convencional
+
+💡 **Recomendación**: Empieza con `tests/demo-local.spec.ts` para verificar que Playwright funciona, luego prueba los ejemplos con IA.
 
 ## 💡 Consejos y Mejores Prácticas
 
