@@ -1,0 +1,28 @@
+{
+  "locator": [
+    {
+      "name": "inputEmail",
+      "type": "input",
+      "locatorType": "xpath",
+      "locator": "//input[@type='email' and @placeholder='Correo']"
+    },
+    {
+      "name": "inputPassword",
+      "type": "input",
+      "locatorType": "xpath",
+      "locator": "//input[@type='password' and @placeholder='Contraseña']"
+    },
+    {
+      "name": "buttonIniciarSesion",
+      "type": "button",
+      "locatorType": "xpath",
+      "locator": "//button[@type='submit']"
+    },
+    {
+      "name": "forgotPasswordLink",
+      "type": "span",
+      "locatorType": "xpath",
+      "locator": "(//span[@class='text-sm text-white hover:underline self-end cursor-pointer'])[1]"
+    }
+  ]
+}

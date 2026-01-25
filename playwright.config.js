@@ -1,7 +1,6 @@
 import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
 
-// Load environment variables from .env file
 dotenv.config();
 
 /**
@@ -9,8 +8,9 @@ dotenv.config();
  */
 export default defineConfig({
   testDir: './test',
+  testMatch: '**/*.spec.js',
   /* Global timeout for each test */
-  timeout: 180000, // 3 minutes
+  timeout: 60000, // 60 seconds
   /* Global timeout for each expect() assertion */
   expect: {
     timeout: 30000, // 30 seconds for assertions
