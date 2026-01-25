@@ -1,0 +1,335 @@
+{
+  "proyecto": {
+    "nombre": "playwright-automation-tests",
+    "descripcion": "Proyecto de automatización de pruebas utilizando Playwright, JavaScript/TypeScript y Node.js",
+    "tecnologias": ["JavaScript", "TypeScript", "Node.js", "Playwright"],
+    "librerias": ["@playwright/test", "playwright", "allure-playwright"]
+  },
+  "proyectos_soportados": ["roadmap"],
+  "metodologia": {
+    "patron": "Page Object Model (POM)",
+    "principios": [
+      "Una pantalla es un POM",
+      "Todos los escenarios deben tener un expect/assert para comprobar el resultado",
+      "Los flujos se arman dentro de 'test/flows/'",
+      "El módulo debe mantener el mismo nombre aplicando la metodología POM",
+      "Usar async/await para todas las operaciones asíncronas"
+    ]
+  },
+  "ordenes_trabajo": {
+    "reglas_ejecucion": [
+      "No realizar ninguna acción sin que sea ordenada",
+      "La orden para construir será 'ejecutar'",
+      "Analizar y planificar cada acción antes de realizarla",
+      "Proporcionar contexto de lo que se está planificando crear",
+      "Definir criterios de éxito para cada acción"
+    ],
+    "acciones_requeridas": [
+      "Siempre dar ejemplos de implementación",
+      "Proporcionar ejemplos concretos de lo que se desea lograr",
+      "Crear documentación de implementación en docs/"
+    ]
+  },
+  "estructura_proyecto": {
+    "directorios": {
+      "src/pages/[PROYECTO]/[MODULO]/": "Clases Page Object Model organizadas por módulos",
+      "src/selectors/[PROYECTO]/[MODULO]/": "Archivos JSON con selectores de cada pantalla",
+      "src/test/[PROYECTO]/[MODULO]/": "Archivos de prueba organizados por módulos (.spec.js)",
+      "src/test/flows/[PROYECTO]/": "Archivos de flujo que orquestan las pruebas",
+      "src/data/[PROYECTO]/": "Archivos de datos de prueba (JSON)",
+      "src/utils/": "Utilidades y helpers compartidos",
+      "src/docs/": "Documentación de implementación"
+    },
+    "reglas_estructura": [
+      "SIEMPRE crear las carpetas de [PROYECTO] y [MODULO] si no existen",
+      "Para proyecto '(proyecto 1)' usar carpeta '(proyecto 1)'",
+      "Para proyecto '(proyecto 2)' usar carpeta '(proyecto 2)'",
+      "Los módulos deben agruparse en carpetas según funcionalidad",
+      "Ejemplos: 'homeCentralizado', 'login', 'quoter', 'forms', etc.",
+      "NO colocar archivos directamente en carpetas padre sin estructura de módulos"
+    ]
+  },
+  "nomenclatura": {
+    "page": "NombrePage.js (ejemplo: LoginPage.js)",
+    "test": "nombre.spec.js (ejemplo: login.spec.js)",
+    "flow": "nombreFlow.spec.js (ejemplo: loginFlow.spec.js)",
+    "selectors": "pantallaPage.json (ejemplo: LoginPage.json)",
+    "data": "pantalla.json (ejemplo: login.json)",
+    "config": "playwright.config.js"
+  },
+  "proceso_construccion": {
+    "paso_1": {
+      "objetivo": "Crear JSON de selectores",
+      "ruta": "src/selectors/[PROYECTO]/[MODULO]/",
+      "nomenclatura": "pantallaPage.json",
+      "instrucciones": [
+        "CREAR carpetas [PROYECTO] y [MODULO] si no existen",
+        "Para '(proyecto 1)' y módulo 'homeCentralizado' usar: selectors/(proyecto 1)/homeCentralizado/",
+        "Para '(proyecto 2)' y módulo 'login' usar: selectors/(proyecto 2)/login/"
+      ],
+      "estructura_con_atributos": {
+        "aplicacion": "inputs",
+        "propiedades": ["placeholder", "required", "type", "maxlength", "pattern"]
+      },
+      "estructura_sin_atributos": {
+        "aplicacion": "otros componentes (button, label, select, etc)"
+      }
+    },
+    "paso_2": {
+      "objetivo": "Crear clase Page",
+      "ruta": "src/pages/[PROYECTO]/[MODULO]/",
+      "herencia": "BasePage",
+      "instrucciones": [
+        "CREAR carpetas [PROYECTO] y [MODULO] si no existen",
+        "Para '(proyecto 1)' y módulo 'homeCentralizado' usar: pages/(proyecto 1)/homeCentralizado/",
+        "Importar selectores desde archivo JSON correspondiente"
+      ],
+      "componentes_requeridos": [
+        "Constructor que recibe page (Playwright page object)",
+        "Importación de selectores desde JSON",
+        "Métodos de interacción asíncronos",
+        "Métodos de validación con expects"
+      ],
+      "metodos_implementacion": {
+        "descripcion": "Implementar métodos específicos para cada acción e interacción",
+        "patrones": [
+          "async clickNombreElemento() - para clicks",
+          "async fillNombreInput(value) - para llenar campos",
+          "async getNombreElementText() - para obtener texto",
+          "async waitForNombreElement() - para esperas",
+          "async isNombreElementVisible() - para verificaciones"
+        ],
+        "implementacion_ejemplo": {
+          "metodo_click": "async clickLoginButton() { await this.page.click(this.selectors.loginButton); }",
+          "metodo_fill": "async fillUsernameInput(username) { await this.page.fill(this.selectors.usernameInput, username); }",
+          "metodo_validation": "async isErrorMessageVisible() { return await this.page.isVisible(this.selectors.errorMessage); }"
+        }
+      }
+    },
+    "paso_3": {
+      "objetivo": "Crear archivo Test",
+      "ruta": "src/test/[PROYECTO]/[MODULO]/",
+      "framework": "Playwright Test",
+      "instrucciones": [
+        "CREAR carpetas [PROYECTO] y [MODULO] si no existen",
+        "Para '(proyecto 1)' y módulo 'homeCentralizado' usar: test/(proyecto 1)/homeCentralizado/",
+        "Usar nomenclatura .spec.js"
+      ],
+      "caracteristicas": [
+        "Un describe por funcionalidad",
+        "Un test por escenario específico",
+        "test() con async/await",
+        "Debe incluir expect() para validar escenario",
+        "Hooks beforeEach/afterEach según necesidad"
+      ],
+      "uso_page_objects": {
+        "descripcion": "Instanciar y usar page objects en los tests",
+        "reglas": [
+          "Importar page objects necesarios",
+          "Instanciar en beforeEach o dentro del test",
+          "Usar métodos async/await para todas las interacciones",
+          "Aplicar expects para validaciones"
+        ],
+        "patrones_implementacion": {
+          "import_page": "const { LoginPage } = require('../../../src/pages/(proyecto 1)/login/LoginPage');",
+          "instancia": "const loginPage = new LoginPage(page);",
+          "uso_metodo": "await loginPage.fillUsernameInput('usuario');",
+          "validacion": "await expect(page.locator(loginPage.selectors.successMessage)).toBeVisible();"
+        }
+      }
+    },
+    "paso_4": {
+      "objetivo": "Crear archivo Flow",
+      "ruta": "src/test/flows/[PROYECTO]/",
+      "framework": "Playwright Test",
+      "instrucciones": [
+        "CREAR carpeta [PROYECTO] si no existe",
+        "Para '(proyecto 1)' usar: src/test/flows/(proyecto 1)/",
+        "Usar nomenclatura nombreFlow.spec.js"
+      ],
+      "caracteristicas": [
+        "Incluye test() de Playwright",
+        "Usa datos desde archivos JSON",
+        "Orquesta secuencia de múltiples páginas",
+        "Maneja navegación entre módulos"
+      ]
+    },
+    "paso_5": {
+      "objetivo": "Configurar Playwright",
+      "archivos": [
+        "playwright.config.js - configuración principal",
+        "package.json - dependencias y scripts"
+      ],
+      "configuracion": [
+        "projects para diferentes navegadores",
+        "reporters: ['html', 'json', 'allure-playwright']",
+        "use: { headless, screenshot, video, trace }",
+        "testDir y testMatch patterns"
+      ]
+    }
+  },
+  "data_provider": {
+    "ubicacion": "src/data/[PROYECTO]/",
+    "instrucciones": [
+      "CREAR carpeta [PROYECTO] si no existe",
+      "Para '(proyecto 1)' usar: src/data/(proyecto 1)/",
+      "Para '(proyecto 2)' usar: src/data/(proyecto 2)/"
+    ],
+    "formato": "JSON",
+    "estructura": [
+      {
+        "testName": "Nombre del caso de prueba",
+        "testData": {
+          "username": "usuario_prueba",
+          "password": "password_prueba",
+          "expectedResult": "resultado_esperado"
+        },
+        "environment": "staging|production|local"
+      }
+    ]
+  },
+  "escenarios_validacion": {
+    "tipos_elementos": {
+      "input": {
+        "validaciones": [
+          "Verificar placeholder text",
+          "Validar entrada de datos",
+          "Comprobar validaciones de campo",
+          "Verificar mensajes de error"
+        ],
+        "metodos_playwright": [
+          "expect(locator).toHaveAttribute('placeholder', value)",
+          "expect(locator).toHaveValue(value)",
+          "expect(locator).toBeEditable()",
+          "expect(locator).toBeFocused()"
+        ]
+      },
+      "button": {
+        "validaciones": [
+          "Verificar que es clickeable",
+          "Validar estado habilitado/deshabilitado",
+          "Comprobar navegación correcta"
+        ],
+        "metodos_playwright": [
+          "expect(locator).toBeEnabled()",
+          "expect(locator).toBeDisabled()",
+          "expect(locator).toBeVisible()"
+        ]
+      },
+      "text": {
+        "validaciones": [
+          "Verificar contenido de texto",
+          "Validar formato y estructura",
+          "Comprobar visibilidad"
+        ],
+        "metodos_playwright": [
+          "expect(locator).toHaveText(text)",
+          "expect(locator).toContainText(text)",
+          "expect(locator).toBeVisible()"
+        ]
+      }
+    },
+    "escenarios_funcionales": {
+      "flujo_positivo": "Validar que el flujo principal funciona correctamente",
+      "flujo_negativo": "Validar manejo de errores y casos límite",
+      "validacion_datos": "Verificar que los datos se procesan correctamente",
+      "navegacion": "Confirmar navegación entre pantallas",
+      "responsive": "Validar funcionamiento en diferentes viewports"
+    }
+  },
+  "criterios_exito": {
+    "general": [
+      "Todos los elementos identificados con selectores estables",
+      "Tests ejecutan sin errores en múltiples navegadores",
+      "Expects validan escenarios correctamente",
+      "Data providers funcionan con múltiples casos",
+      "Configuración Playwright funciona correctamente",
+      "Reportes se generan correctamente"
+    ],
+    "por_paso": {
+      "json_selectors": "Todos los elementos de la pantalla mapeados",
+      "page_class": "Página hereda de BasePage e implementa métodos async",
+      "test_spec": "Tests incluyen expects y validan funcionalidad",
+      "flow_spec": "Flow orquesta tests con datos externos",
+      "config": "Configuración ejecuta con múltiples navegadores"
+    }
+  },
+  "plantillas_implementacion": {
+    "estructura_selector_json_completa": {
+      "descripcion": "Estructura completa de archivo JSON de selectores",
+      "plantilla": {
+        "selectors": [
+          {
+            "name": "loginButton",
+            "type": "button",
+            "selector": "button[data-testid='login-btn']",
+            "selectorType": "css"
+          },
+          {
+            "name": "usernameInput",
+            "type": "input",
+            "selector": "//input[@placeholder='Usuario']",
+            "selectorType": "xpath",
+            "attributes": {
+              "placeholder": "Usuario",
+              "required": true,
+              "type": "text"
+            }
+          },
+          {
+            "name": "errorMessage",
+            "type": "div",
+            "selector": ".error-message",
+            "selectorType": "css"
+          }
+        ]
+      }
+    },
+    "page_class_ejemplo": {
+      "estructura": "class LoginPage extends BasePage {\n  constructor(page) {\n    super(page);\n    this.selectors = require('./selectors/LoginPage.json').selectors;\n  }\n\n  async fillUsername(username) {\n    await this.page.fill('[data-testid=\"username\"]', username);\n  }\n\n  async clickLoginButton() {\n    await this.page.click('[data-testid=\"login-btn\"]');\n  }\n\n  async getErrorMessage() {\n    return await this.page.textContent('.error-message');\n  }\n}"
+    },
+    "test_spec_ejemplo": {
+      "estructura": "const { test, expect } = require('@playwright/test');\nconst { LoginPage } = require('../../../pages/(proyecto 1)/login/LoginPage');\n\ntest.describe('Login Tests', () => {\n  let loginPage;\n\n  test.beforeEach(async ({ page }) => {\n    loginPage = new LoginPage(page);\n    await page.goto('/login');\n  });\n\n  test('should login successfully with valid credentials', async ({ page }) => {\n    await loginPage.fillUsername('validUser');\n    await loginPage.fillPassword('validPassword');\n    await loginPage.clickLoginButton();\n    \n    await expect(page).toHaveURL('/dashboard');\n  });\n});"
+    },
+    "flow_spec_ejemplo": {
+      "estructura": "const { test, expect } = require('@playwright/test');\nconst { LoginPage } = require('../../pages/(proyecto 1)/login/LoginPage');\nconst { DashboardPage } = require('../../pages/(proyecto 1)/dashboard/DashboardPage');\nconst testData = require('../../data/(proyecto 1)/loginFlow.json');\n\ntest.describe('Login Flow', () => {\n  testData.forEach(data => {\n    test(`Login flow: ${data.testName}`, async ({ page }) => {\n      const loginPage = new LoginPage(page);\n      const dashboardPage = new DashboardPage(page);\n      \n      await page.goto('/login');\n      await loginPage.performLogin(data.testData.username, data.testData.password);\n      await expect(dashboardPage.welcomeMessage).toBeVisible();\n    });\n  });\n});"
+    },
+    "config_ejemplo": {
+      "estructura": "module.exports = {\n  testDir: './test',\n  timeout: 30000,\n  expect: {\n    timeout: 5000\n  },\n  fullyParallel: true,\n  forbidOnly: !!process.env.CI,\n  retries: process.env.CI ? 2 : 0,\n  workers: process.env.CI ? 1 : undefined,\n  reporter: [['html'], ['json', { outputFile: 'test-results/results.json' }]],\n  use: {\n    baseURL: 'http://localhost:3000',\n    trace: 'on-first-retry',\n    screenshot: 'only-on-failure'\n  },\n  projects: [\n    {\n      name: 'chromium',\n      use: { ...devices['Desktop Chrome'] }\n    },\n    {\n      name: 'firefox',\n      use: { ...devices['Desktop Firefox'] }\n    }\n  ]\n};"
+    }
+  },
+  "comandos_playwright": {
+    "ejecucion": {
+      "todos_tests": "npx playwright test",
+      "test_especifico": "npx playwright test login.spec.js",
+      "con_modo_headed": "npx playwright test --headed",
+      "solo_chrome": "npx playwright test --project=chromium",
+      "generar_reporte": "npx playwright show-report"
+    },
+    "debug": {
+      "modo_debug": "npx playwright test --debug",
+      "inspector": "npx playwright test --ui",
+      "trace_viewer": "npx playwright show-trace trace.zip"
+    }
+  },
+  "best_practices": {
+    "selectores": [
+      "Usar data-testid cuando sea posible",
+      "Evitar selectores basados en texto que puede cambiar",
+      "Preferir selectores CSS sobre XPath cuando sea posible",
+      "Hacer selectores lo más específicos necesario pero no más"
+    ],
+    "tests": [
+      "Un test por escenario específico",
+      "Usar async/await consistentemente",
+      "Limpiar estado entre tests",
+      "Usar expects específicos y descriptivos"
+    ],
+    "mantenimiento": [
+      "Centralizar selectores en archivos JSON",
+      "Reutilizar page objects",
+      "Mantener tests independientes",
+      "Documentar casos de uso complejos"
+    ]
+  }
+}

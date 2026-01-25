@@ -1,0 +1,86 @@
+[
+  {
+    "nombre": "Validar botón Elementos - Navegación exitosa",
+    "testType": "validarBotonElementos",
+    "expectedUrl": "elements",
+    "description": "Valida que el botón Elements redireccione correctamente a la página de elementos",
+    "device": "desktop"
+  },
+  {
+    "nombre": "Validar botón Formularios - Navegación exitosa",
+    "testType": "validarBotonFormularios",
+    "expectedUrl": "forms",
+    "description": "Valida que el botón Forms redireccione correctamente a la página de formularios",
+    "device": "desktop"
+  },
+  {
+    "nombre": "Validar botón Alertas - Navegación exitosa",
+    "testType": "validarBotonAlertas",
+    "expectedUrl": "alertsWindows",
+    "description": "Valida que el botón Alerts redireccione correctamente a la página de alertas",
+    "device": "desktop"
+  },
+  {
+    "nombre": "Validar label Widget - Navegación exitosa",
+    "testType": "validarLabelWidget",
+    "expectedUrl": "widgets",
+    "description": "Valida que el label Widgets redireccione correctamente a la página de widgets",
+    "device": "desktop"
+  },
+  {
+    "nombre": "Validar botón Interacción - Navegación exitosa",
+    "testType": "validarBotonInteraccion",
+    "expectedUrl": "interaction",
+    "description": "Valida que el botón Interactions redireccione correctamente a la página de interacciones",
+    "device": "desktop"
+  },
+  {
+    "nombre": "Validar botón Biblioteca - Navegación exitosa",
+    "testType": "validarBotonBiblioteca",
+    "expectedUrl": "books",
+    "description": "Valida que el botón Book Store redireccione correctamente a la página de biblioteca",
+    "device": "desktop"
+  },
+  {
+    "nombre": "Validar todas las cards visibles",
+    "testType": "validarTodasLasCardsVisibles",
+    "expectedUrl": "",
+    "description": "Valida que todas las cards de la página principal estén visibles",
+    "device": "desktop"
+  },
+  {
+    "nombre": "Validar títulos de las cards",
+    "testType": "validarTitulosCards",
+    "expectedUrl": "",
+    "description": "Valida que los títulos de todas las cards sean correctos",
+    "device": "desktop"
+  },
+  {
+    "nombre": "Validar navegación completa",
+    "testType": "validarNavegacionCompleta",
+    "expectedUrl": "",
+    "description": "Valida la navegación a todas las páginas desde la home",
+    "device": "desktop"
+  },
+  {
+    "nombre": "Validar botón Elementos - Mobile",
+    "testType": "validarBotonElementos",
+    "expectedUrl": "elements",
+    "description": "Valida que el botón Elements funcione correctamente en dispositivos móviles",
+    "device": "mobile"
+  },
+  {
+    "nombre": "Validar botón Formularios - Mobile",
+    "testType": "validarBotonFormularios",
+    "expectedUrl": "forms",
+    "description": "Valida que el botón Forms funcione correctamente en dispositivos móviles",
+    "device": "mobile"
+  },
+  {
+    "nombre": "Validar todas las cards visibles - Mobile",
+    "testType": "validarTodasLasCardsVisibles",
+    "expectedUrl": "",
+    "description": "Valida que todas las cards estén visibles en dispositivos móviles",
+    "device": "mobile"
+  }
+]

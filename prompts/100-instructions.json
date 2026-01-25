@@ -1,0 +1,351 @@
+{
+  "proyecto": {
+    "nombre": "bi-enterprise-loans-qa",
+    "descripcion": "Proyecto de automatización de pruebas utilizando Maven, TestNG, Java y Selenium",
+    "tecnologias": ["Java", "Maven", "TestNG", "Selenium"],
+    "librerias": ["bi-utils-qa", "qa-automation-libraries"]
+  },
+  "metodologia": {
+    "patron": "Page Object Model (POM)",
+    "principios": [
+      "Una pantalla es un POM",
+      "Todos los escenarios deben tener un assert para comprobar el resultado",
+      "Los flujos se arman dentro de 'src/test/java/test/MasterTest'",
+      "El módulo debe mantener el mismo nombre aplicando la metodología POM"
+    ]
+  },
+  "ordenes_trabajo": {
+    "reglas_ejecucion": [
+      "No realizar ninguna acción sin que sea ordenada",
+      "La orden para construir será 'ejecutar'",
+      "Analizar y planificar cada acción antes de realizarla",
+      "Proporcionar contexto de lo que se está planificando crear",
+      "Definir criterios de éxito para cada acción"
+    ],
+    "acciones_requeridas": [
+      "Siempre dar ejemplos de implementación",
+      "Proporcionar ejemplos concretos de lo que se desea lograr",
+      "Crear documentación de implementación en doc/"
+    ]
+  },
+  "estructura_proyecto": {
+    "directorios": {
+      "src/main/java/page/[PROYECTO]/[MODULO]/": "Clases Page Object Model organizadas por módulos",
+      "src/main/resources/locators/[PROYECTO]/[MODULO]/": "Archivos JSON con locators/xpaths de cada pantalla",
+      "src/test/java/test/[PROYECTO]/[MODULO]/": "Clases de prueba organizadas por módulos",
+      "src/test/java/test/[PROYECTO]/MasterTest/": "Clases de flujo que orquestan las pruebas",
+      "suites/[PROYECTO]": "Archivos XML de configuración TestNG",
+      "doc/": "Documentación de implementación"
+    },
+    "reglas_estructura": [
+      "SIEMPRE crear las carpetas de [PROYECTO] y [MODULO] si no existen",
+      "Para proyecto 'pymes' usar carpeta 'pymes'",
+      "Para proyecto 'enterprise' usar carpeta 'enterprise'",
+      "Los módulos deben agruparse en carpetas según funcionalidad",
+      "Ejemplos: 'homeCentralizado', 'login', 'quoter', 'forms', etc.",
+      "NO colocar archivos directamente en carpetas padre sin estructura de módulos"
+    ]
+  },
+  "nomenclatura": {
+    "page": "NombrePage.java (ejemplo: LoginPage.java)",
+    "test": "NombreTest.java (ejemplo: LoginTest.java)",
+    "flow": "nombreFlow.java (ejemplo: LoginFlow.java)",
+    "suite": "nombreFlow.xml (ejemplo: LoginFlow.xml)",
+    "locators": "pantallaPage.json (ejemplo: LoginPage.json)",
+    "data_provider": "pantalla.json (ejemplo: login.json)"
+  },
+  "proceso_construccion": {
+    "paso_1": {
+      "objetivo": "Crear JSON de objetos XPath",
+      "ruta": "src/main/resources/locators/[PROYECTO]/[MODULO]/",
+      "nomenclatura": "pantallaPage.json",
+      "instrucciones": [
+        "CREAR carpetas [PROYECTO] y [MODULO] si no existen",
+        "Para 'pymes' y módulo 'homeCentralizado' usar: src/main/resources/locators/pymes/homeCentralizado/",
+        "Para 'enterprise' y módulo 'login' usar: src/main/resources/locators/enterprise/login/"
+      ],
+      "estructura_con_atributos": {
+        "aplicacion": "inputs",
+        "propiedades": ["min", "max", "ascii", "errorxpath", "required"]
+      },
+      "estructura_sin_atributos": {
+        "aplicacion": "otros componentes (button, label, select, etc)"
+      }
+    },
+    "paso_2": {
+      "objetivo": "Crear clase Page",
+      "ruta": "src/main/java/page/[PROYECTO]/[MODULO]/",
+      "herencia": "BasePage",
+      "instrucciones": [
+        "CREAR carpetas [PROYECTO] y [MODULO] si no existen",
+        "Para 'pymes' y módulo 'homeCentralizado' usar: src/main/java/page/pymes/homeCentralizado/",
+        "El package debe ser: package page.pymes.homeCentralizado;"
+      ],
+      "componentes_requeridos": [
+        "Constructor que recibe WebDriver",
+        "Componentes según tipo en base al JSON",
+        "Getters y setters de todos los componentes",
+        "Métodos de inicialización de componentes"
+      ],
+      "metodos_inicializacion": {
+        "descripcion": "Implementar métodos init individuales para cada componente",
+        "beneficios": [
+          "Rendimiento optimizado - solo inicializa componentes necesarios",
+          "Control granular - debugging más fácil",
+          "Flexibilidad - diferentes tests pueden inicializar diferentes componentes",
+          "Mantenimiento modular - cada componente es independiente"
+        ],
+        "patrones": [
+          "initNombreComponente() - para cada componente individual",
+          "Ejemplo: initButtonConoceMas(), initDatosEmpresaJuridica()",
+          "Cada método init debe crear solo UN componente específico",
+          "Usar this.componente = new TipoComponente(driver, locator)"
+        ],
+        "implementacion_ejemplo": {
+          "metodo_individual": "public void initButtonConoceMas() { this.buttonConoceMas = new Button(driver, mpl.returnLocator(\"buttonConoceMas\")); }",
+          "comentarios_requeridos": "// Métodos de inicialización por componente - Usar cuando solo necesites inicializar componentes específicos"
+        }
+      }
+    },
+    "paso_3": {
+      "objetivo": "Crear clase Test",
+      "ruta": "src/test/java/test/[PROYECTO]/[MODULO]/",
+      "herencia": "BaseTest",
+      "instrucciones": [
+        "CREAR carpetas [PROYECTO] y [MODULO] si no existen",
+        "Para 'pymes' y módulo 'homeCentralizado' usar: src/test/java/test/pymes/homeCentralizado/",
+        "El package debe ser: package test.pymes.homeCentralizado;"
+      ],
+      "caracteristicas": [
+        "Un escenario por prueba",
+        "Sin @Test (se agrega en pasos posteriores)",
+        "Debe incluir Assert para validar escenario"
+      ],
+      "uso_init_componentes": {
+        "descripcion": "Usar métodos init específicos según los componentes que cada test necesita",
+        "reglas": [
+          "SOLO inicializar componentes que el test realmente usa",
+          "Inicializar componentes ANTES de usarlos en el test",
+          "Para flujos progresivos, inicializar por pasos según aparezcan elementos",
+          "NO usar init() general si solo necesitas componentes específicos"
+        ],
+        "patrones_implementacion": {
+          "test_simple": "homeCentralizadoPage.initButtonConoceMas(); // Solo el botón que usa",
+          "test_multiple": "homeCentralizadoPage.initButtonEmpresaJuridica(); homeCentralizadoPage.initDatosEmpresaJuridica(); // Solo los que necesita",
+          "test_progresivo": "// Paso 1: init inicial, Paso 2: init según aparezcan elementos"
+        },
+        "ejemplos_casos_uso": [
+          "validarBotonEspecifico() - solo initButtonEspecifico()",
+          "validarDatos() - initButton + initDatos del tipo específico",
+          "validarFlujoCompleto() - init progresivo por pasos",
+          "validarFormulario() - init solo campos que se van a validar"
+        ]
+      }
+    },
+    "paso_4": {
+      "objetivo": "Crear clase Flow (Módulo)",
+      "ruta": "src/test/java/test/[PROYECTO]/MasterTest/",
+      "herencia": "BaseTest",
+      "instrucciones": [
+        "CREAR carpetas [PROYECTO] y MasterTest si no existen",
+        "Para 'pymes' usar: src/test/java/test/pymes/MasterTest/",
+        "El package debe ser: package test.pymes.MasterTest;"
+      ],
+      "caracteristicas": [
+        "Incluye @Test de TestNG",
+        "Usa dataProviderClass = SharedDataProvider.class",
+        "Orquesta secuencia de escenarios"
+      ]
+    },
+    "paso_5": {
+      "objetivo": "Crear Suite XML",
+      "ruta": "suites/[PROYECTO]/",
+      "instrucciones": [
+        "CREAR carpeta [PROYECTO] si no existe",
+        "Para 'pymes' usar: suites/pymes/",
+        "Para 'enterprise' usar: suites/enterprise/"
+      ],
+      "configuracion": [
+        "parallel='tests'",
+        "thread-count='2'",
+        "parameter name='dataprovider'",
+        "listener class-name='listener.BrowserStackListener'"
+      ]
+    }
+  },
+  "data_provider": {
+    "ubicacion": "src/test/resources/dataProvider/[PROYECTO]/",
+    "instrucciones": [
+      "CREAR carpeta [PROYECTO] si no existe",
+      "Para 'pymes' usar: src/test/resources/dataProvider/pymes/",
+      "Para 'enterprise' usar: src/test/resources/dataProvider/enterprise/"
+    ],
+    "formato": "JSON",
+    "estructura": [
+      {
+        "nombre": "Nombre del caso de prueba",
+        "dato1": "Primer dato de prueba",
+        "dato2": "Segundo dato de prueba",
+        "dato3": "Tercer dato de prueba",
+        "device": "Dispositivo de prueba"
+      }
+    ]
+  },
+  "escenarios_validacion": {
+    "tipos_componentes": {
+      "input": {
+        "validaciones": [
+          "Longitud mínima y máxima",
+          "Caracteres permitidos (ASCII)",
+          "Campo requerido",
+          "Mensajes de error"
+        ]
+      },
+      "button": {
+        "validaciones": ["Clickeabilidad", "Estado habilitado/deshabilitado", "Navegación correcta"]
+      },
+      "select": {
+        "validaciones": ["Opciones disponibles", "Selección correcta", "Valores por defecto"]
+      },
+      "label": {
+        "validaciones": ["Texto visible", "Formato correcto", "Información mostrada"]
+      }
+    },
+    "escenarios_funcionales": {
+      "flujo_positivo": "Validar que el flujo principal funciona correctamente",
+      "flujo_negativo": "Validar manejo de errores y casos límite",
+      "validacion_datos": "Verificar que los datos se procesan correctamente",
+      "navegacion": "Confirmar navegación entre pantallas",
+      "responsive": "Validar funcionamiento en diferentes dispositivos"
+    }
+  },
+  "criterios_exito": {
+    "general": [
+      "Todos los componentes identificados correctamente",
+      "Locators únicos y estables",
+      "Tests ejecutan sin errores",
+      "Asserts validan escenarios correctamente",
+      "Data providers funcionan con múltiples casos",
+      "Suite XML ejecuta correctamente"
+    ],
+    "por_paso": {
+      "json_locators": "Todos los componentes de la pantalla mapeados",
+      "page_class": "Página hereda de BasePage y inicializa componentes",
+      "test_class": "Tests incluyen asserts y validan funcionalidad",
+      "flow_class": "Flow orquesta tests con data provider",
+      "suite_xml": "Suite ejecuta con configuración correcta"
+    }
+  },
+  "plantillas_implementacion": {
+    "estructura_locator_json_completa": {
+      "descripcion": "Estructura completa de archivo JSON de locators basada en HomeCentralizadoPage.json",
+      "plantilla": {
+        "locator": [
+          {
+            "name": "buttonConoceMas",
+            "type": "button",
+            "locatorType": "id",
+            "locator": "btn_conoce_mas_cme"
+          },
+          {
+            "name": "buttonEmpresaJuridica",
+            "type": "button",
+            "locatorType": "xpath",
+            "locator": "//label[normalize-space(text())='Empresa jurídica']"
+          },
+          {
+            "name": "buttonEmpresaIndividual",
+            "type": "button",
+            "locatorType": "xpath",
+            "locator": "//label[normalize-space(text())='Empresa individual']"
+          },
+          {
+            "name": "buttonSolicitaloAhora",
+            "type": "button",
+            "locatorType": "id",
+            "locator": "btn_solicitalo_ahora_cme_individual"
+          },
+          {
+            "name": "datosEmpresaJuridica",
+            "type": "div",
+            "locatorType": "xpath",
+            "locator": "//span[normalize-space(.)='Escritura de acta de constitución:']"
+          },
+          {
+            "name": "datosEmpresaIndividual",
+            "type": "div",
+            "locatorType": "xpath",
+            "locator": "//span[normalize-space(.)='DPI del titular:']"
+          }
+        ]
+      },
+      "notas": [
+        "Estructura raíz 'locator' contiene array de componentes",
+        "Cada componente tiene: name, type, locatorType, locator",
+        "locatorType puede ser: 'id', 'xpath', 'css', 'name', 'className'",
+        "type puede ser: 'button', 'input', 'div', 'span', 'select', 'label'",
+        "name debe seguir camelCase y ser descriptivo",
+        "locator contiene el selector específico del elemento"
+      ]
+    },
+    "json_input_con_atributos": {
+      "name": "identification_number",
+      "type": "input",
+      "locatorType": "id",
+      "locator": "inp_identification",
+      "attributes": [
+        {
+          "name": "min",
+          "value": "15"
+        },
+        {
+          "name": "max",
+          "value": "15"
+        },
+        {
+          "name": "required",
+          "value": "true"
+        }
+      ]
+    },
+    "json_componente_simple": {
+      "name": "buttonLogin",
+      "type": "button",
+      "locatorType": "xpath",
+      "locator": "//button[@id='login']"
+    },
+    "metodo_test_ejemplo": "public void validarLogin() { /* implementación con assert */ }",
+    "metodo_flow_ejemplo": "@Test(groups = {\"loginTest\"}, dataProviderClass = SharedDataProvider.class, dataProvider = \"data-provider\")",
+    "plantillas_init_componentes": {
+      "descripcion": "Plantillas para implementar métodos init individuales por componente",
+      "metodo_init_button": {
+        "patron": "public void initNombreButton() { this.nombreButton = new Button(driver, mpl.returnLocator(\"nombreButton\")); }",
+        "ejemplo": "public void initButtonConoceMas() { this.buttonConoceMas = new Button(driver, mpl.returnLocator(\"buttonConoceMas\")); }"
+      },
+      "metodo_init_input": {
+        "patron": "public void initNombreInput() { this.nombreInput = new Input(driver, mpl.returnLocator(\"nombreInput\")); }",
+        "ejemplo": "public void initInputEmail() { this.inputEmail = new Input(driver, mpl.returnLocator(\"inputEmail\")); }"
+      },
+      "metodo_init_component": {
+        "patron": "public void initNombreComponent() { this.nombreComponent = new Component(driver, mpl.returnLocator(\"nombreComponent\")); }",
+        "ejemplo": "public void initDatosEmpresaJuridica() { this.datosEmpresaJuridica = new Component(driver, mpl.returnLocator(\"datosEmpresaJuridica\")); }"
+      },
+      "seccion_comentarios": "// Métodos de inicialización por componente\\n// Usar cuando solo necesites inicializar componentes específicos"
+    },
+    "plantillas_uso_tests": {
+      "descripcion": "Plantillas para usar métodos init específicos en tests",
+      "test_componente_simple": {
+        "patron": "public void validarComponenteEspecifico() {\\n    pageObject.initComponenteEspecifico();\\n    // usar componente\\n    Assert.assertTrue(condicion);\\n}",
+        "ejemplo": "public void validarBotonConoceMas() {\\n    homeCentralizadoPage.initButtonConoceMas();\\n    homeCentralizadoPage.clickConoceMas();\\n    Assert.assertTrue(homeCentralizadoPage.getButtonConoceMas().existElement());\\n}"
+      },
+      "test_multiples_componentes": {
+        "patron": "public void validarMultiplesComponentes() {\\n    pageObject.initComponente1();\\n    pageObject.initComponente2();\\n    // usar componentes\\n    Assert.assertTrue(condicion);\\n}",
+        "ejemplo": "public void validarEmpresaJuridica() {\\n    homeCentralizadoPage.initButtonEmpresaJuridica();\\n    homeCentralizadoPage.initDatosEmpresaJuridica();\\n    homeCentralizadoPage.clickEmpresaJuridica();\\n    Assert.assertTrue(homeCentralizadoPage.isDatosEmpresaJuridicaVisible());\\n}"
+      },
+      "test_flujo_progresivo": {
+        "patron": "public void validarFlujoProgresivo() {\\n    // Paso 1: init inicial\\n    pageObject.initComponenteInicial();\\n    // acción\\n    // Paso 2: init componentes que aparecen\\n    pageObject.initComponentesSiguientes();\\n    // validar\\n}",
+        "ejemplo": "public void validarFlujoCompleto() {\\n    // Paso 1: inicializar y hacer clic en conoce más\\n    homeCentralizadoPage.initButtonConoceMas();\\n    homeCentralizadoPage.clickConoceMas();\\n    // Paso 2: inicializar botones que aparecen\\n    homeCentralizadoPage.initButtonEmpresaJuridica();\\n    homeCentralizadoPage.initButtonEmpresaIndividual();\\n    Assert.assertTrue(homeCentralizadoPage.areAllButtonsVisible());\\n}"
+      }
+    }
+  }
+}

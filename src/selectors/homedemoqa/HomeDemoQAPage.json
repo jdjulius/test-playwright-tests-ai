@@ -1,0 +1,76 @@
+{
+  "locator": [
+    {
+      "name": "buttonElementos",
+      "type": "button",
+      "locatorType": "xpath",
+      "locator": "//h5[normalize-space(text())='Elements']"
+    },
+    {
+      "name": "buttonFormularios",
+      "type": "button",
+      "locatorType": "xpath",
+      "locator": "//h5[normalize-space(text())='Forms']"
+    },
+    {
+      "name": "buttonAlertas",
+      "type": "button",
+      "locatorType": "xpath",
+      "locator": "//h5[normalize-space(text())='Alerts, Frame & Windows']"
+    },
+    {
+      "name": "labelWidget",
+      "type": "label",
+      "locatorType": "xpath",
+      "locator": "//h5[normalize-space(text())='Widgets']"
+    },
+    {
+      "name": "buttonInteraccion",
+      "type": "button",
+      "locatorType": "xpath",
+      "locator": "//h5[normalize-space(text())='Interactions']"
+    },
+    {
+      "name": "buttonBiblioteca",
+      "type": "button",
+      "locatorType": "xpath",
+      "locator": "//h5[normalize-space(text())='Book Store Application']"
+    },
+    {
+      "name": "cardElementos",
+      "type": "div",
+      "locatorType": "xpath",
+      "locator": "//div[contains(@class,'card') and .//h5[text()='Elements']]"
+    },
+    {
+      "name": "cardFormularios",
+      "type": "div",
+      "locatorType": "xpath",
+      "locator": "//div[contains(@class,'card') and .//h5[text()='Forms']]"
+    },
+    {
+      "name": "cardAlertas",
+      "type": "div",
+      "locatorType": "xpath",
+      "locator": "//div[contains(@class,'card') and .//h5[text()='Alerts, Frame & Windows']]"
+    },
+    {
+      "name": "cardWidget",
+      "type": "div",
+      "locatorType": "xpath",
+      "locator": "//div[contains(@class,'card') and .//h5[text()='Widgets']]"
+    },
+    {
+      "name": "cardInteraccion",
+      "type": "div",
+      "locatorType": "xpath",
+      "locator": "//div[contains(@class,'card') and .//h5[text()='Interactions']]"
+    },
+    {
+      "name": "cardBiblioteca",
+      "type": "div",
+      "locatorType": "xpath",
+      "locator": "//div[contains(@class,'card') and .//h5[text()='Book Store Application']]"
+    }
+  ]
+}

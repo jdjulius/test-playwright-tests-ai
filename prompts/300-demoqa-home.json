@@ -1,0 +1,64 @@
+{
+  "pantalla_template": {
+    "informacion_basica": {
+      "proyecto": {
+        "nombre": "home demo qa",
+        "obligatorio": true
+      },
+      "nombre_pantalla": {
+        "nombre": "homedemoqa",
+        "obligatorio": true
+      },
+      "nombre_flujo": {
+        "nombre": "homedemoqa_flujo",
+        "obligatorio": true
+      },
+      "modulo": {
+        "nombre": "homedemoqa",
+        "obligatorio": true
+      }
+    },
+    "componentes_identificados": [
+      {
+        "name": "elementos",
+        "type": "button",
+        "descripcion": "Mostrar los elementos disponibles en la página"
+      },
+      {
+        "name": "formularios",
+        "type": "button",
+        "descripcion": "Botón para seleccionar formularios"
+      },
+      {
+        "name": "alertas",
+        "type": "button",
+        "descripcion": "Botón para seleccionar alertas"
+      },
+      {
+        "name": "widget",
+        "type": "label",
+        "descripcion": "Redireccionar a la página del widget para conocer los requisitos"
+      },
+      {
+        "name": "Interaccion",
+        "type": "button",
+        "descripcion": "Botón para iniciar la interacción con los elementos"
+      },
+      {
+        "name": "biblioteca",
+        "type": "button",
+        "descripcion": "Botón para acceder a la biblioteca de componentes"
+      }
+    ],
+    "validaciones_previas": {
+      "verificaciones": [
+        "Validar que el boton elementos redireccione a pagina de elementos",
+        "Validar que el boton formularios redireccione a pagina de formularios",
+        "Validar que el boton alertas redireccione a pagina de alertas",
+        "Validar que el label widget redireccione a pagina de widget",
+        "Validar que el boton interaccion redireccione a pagina de interaccion",
+        "Validar que el boton biblioteca redireccione a pagina de biblioteca"
+      ]
+    }
+  }
+}
