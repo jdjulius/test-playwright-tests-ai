@@ -3,9 +3,9 @@ version: 0.2
 
 env:
   variables:
-    NODE_VERSION: "18"
-    PLAYWRIGHT_VERSION: "1.57.0"
-    CI: "true"
+    NODE_VERSION: '18'
+    PLAYWRIGHT_VERSION: '1.57.0'
+    CI: 'true'
 
 phases:
   install:
@@ -13,11 +13,12 @@ phases:
       nodejs: $NODE_VERSION
     commands:
       - echo "Installing dependencies..."
-      - npm ci
+      - npm cache clean --force
+      - npm install
       - echo "Installing Playwright browsers..."
       - npx playwright install chromium
       - npx playwright install-deps chromium
-      
+
   pre_build:
     commands:
       - echo "Pre-build phase started on `date`"
@@ -25,13 +26,13 @@ phases:
       - echo "Node version:" $(node --version)
       - echo "NPM version:" $(npm --version)
       - echo "Playwright version:" $(npx playwright --version)
-      
+
   build:
     commands:
       - echo "Build phase started on `date`"
       - echo "Running Playwright tests..."
       - npm run test
-      
+
   post_build:
     commands:
       - echo "Post-build phase started on `date`"
