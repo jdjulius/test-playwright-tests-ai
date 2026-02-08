@@ -103,18 +103,27 @@ jobs:
               
               | Metric | Value |
               |--------|-------|
-              | ✅ Passed | ${stats.passed} |
-              | ❌ Failed | ${stats.failed} |
-              | ⏭️ Skipped | ${stats.skipped} |
-              | ⏱️ Duration | ${Math.round(stats.duration / 1000)}s |
+              | ✅ Passed | ${stats.passed || 0} |
+              | ❌ Failed | ${stats.failed || 0} |
+              | ⏭️ Skipped | ${stats.skipped || 0} |
+              | ⏱️ Duration | ${Math.round((stats.duration || 0) / 1000)}s |
               
               [View detailed report](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})
               `;
               
-              github.rest.issues.createComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: body
-              });
+              // Solo comentar si es un pull request
+              if (context.payload.pull_request) {
+                github.rest.issues.createComment({
+                  issue_number: context.payload.pull_request.number,
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  body: body
+                });
+                console.log('Comment posted to PR');
+              } else {
+                console.log('Not a PR - skipping comment');
+                console.log('Test results:', body);
+              }
+            } else {
+              console.log('No test results found');
             }
