@@ -103,8 +103,8 @@ jobs:
               
               | Metric | Value |
               |--------|-------|
-              | ✅ Passed | ${stats.passed || 0} |
-              | ❌ Failed | ${stats.failed || 0} |
+              | ✅ Passed | ${stats.expected || 0} |
+              | ❌ Failed | ${stats.unexpected || 0} |
               | ⏭️ Skipped | ${stats.skipped || 0} |
               | ⏱️ Duration | ${Math.round((stats.duration || 0) / 1000)}s |
               
