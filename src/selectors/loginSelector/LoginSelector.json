@@ -22,7 +22,13 @@
       "name": "forgotPasswordLink",
       "type": "span",
       "locatorType": "xpath",
-      "locator": "(//span[@class='text-sm text-white hover:underline self-end cursor-pointer'])[1]"
+      "locator": "//span[@class='text-sm text-white hover:underline self-end cursor-pointer'])[1]"
+    },
+    {
+      "name": "modalErrorMessage",
+      "type": "modal",
+      "locatorType": "xpath",
+      "locator": "//div[@class='p-toast-message-content']"
     }
   ]
 }

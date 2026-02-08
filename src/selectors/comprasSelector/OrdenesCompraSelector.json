@@ -1,0 +1,94 @@
+{
+  "locator": [
+    {
+      "name": "botonNuevaOrdenCompra",
+      "type": "button",
+      "locatorType": "xpath",
+      "locator": ""
+    },
+    {
+      "name": "proveedorDropdown",
+      "type": "select",
+      "locatorType": "xpath",
+      "locator": ""
+    },
+    {
+      "name": "fechaOrden",
+      "type": "input",
+      "locatorType": "xpath",
+      "locator": ""
+    },
+    {
+      "name": "proyectoInput",
+      "type": "input",
+      "locatorType": "xpath",
+      "locator": ""
+    },
+    {
+      "name": "condicionPagoDropdown",
+      "type": "select",
+      "locatorType": "xpath",
+      "locator": ""
+    },
+    {
+      "name": "comentarioInput",
+      "type": "input",
+      "locatorType": "xpath",
+      "locator": ""
+    },
+    {
+      "name": "botonAgregar",
+      "type": "button",
+      "locatorType": "xpath",
+      "locator": ""
+    },
+    {
+      "name": "checkbox1",
+      "type": "checkbox",
+      "locatorType": "xpath",
+      "locator": ""
+    },
+    {
+      "name": "checkbox2",
+      "type": "checkbox",
+      "locatorType": "xpath",
+      "locator": ""
+    },
+    {
+      "name": "checkbox3",
+      "type": "checkbox",
+      "locatorType": "xpath",
+      "locator": ""
+    },
+    {
+      "name": "botonAgregarSeleccionados",
+      "type": "button",
+      "locatorType": "xpath",
+      "locator": ""
+    },
+    {
+      "name": "monto1Input",
+      "type": "input",
+      "locatorType": "xpath",
+      "locator": ""
+    },
+    {
+      "name": "monto2Input",
+      "type": "input",
+      "locatorType": "xpath",
+      "locator": ""
+    },
+    {
+      "name": "monto3Input",
+      "type": "input",
+      "locatorType": "xpath",
+      "locator": ""
+    },
+    {
+      "name": "botonGuardar",
+      "type": "button",
+      "locatorType": "xpath",
+      "locator": ""
+    }
+  ]
+}

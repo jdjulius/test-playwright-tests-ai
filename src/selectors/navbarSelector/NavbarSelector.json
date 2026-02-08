@@ -1,0 +1,28 @@
+{
+  "locator": [
+    {
+      "name": "comprasNavBar",
+      "type": "link",
+      "locatorType": "xpath",
+      "locator": "//div[@class='menu-item-header submenu-expanded']"
+    },
+    {
+      "name": "OrdenesCompraSubmodule",
+      "type": "input",
+      "locatorType": "xpath",
+      "locator": "//ul[@class='submenu submenu-open']//li[1]"
+    },
+    {
+      "name": "comprasSubmodule",
+      "type": "link",
+      "locatorType": "xpath",
+      "locator": "//ul[@class='submenu submenu-open']//li[2]"
+    },
+    {
+      "name": "procesarOrdenesSubmodule",
+      "type": "link",
+      "locatorType": "xpath",
+      "locator": "//ul[@class='submenu submenu-open']//li[3]"
+    }
+  ]
+}

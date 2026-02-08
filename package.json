@@ -6,15 +6,15 @@
   "type": "module",
   "scripts": {
     "test": "playwright test",
-    "test:ui": "playwright test --ui",
-    "test:headed": "playwright test --headed",
-    "test:login": "playwright test test/login.ai.spec.js",
+    "test:ci": "CI=true playwright test",
+    "test:headed": "HEADLESS=false playwright test",
     "test:loginTest": "playwright test test/loginTest/loginTest.spec.js",
-    "test:loginTest:ui": "playwright test test/loginTest/loginTest.spec.js --ui",
-    "test:google": "playwright test test/google-search.ai.spec.js",
-    "test:paisa": "playwright test test/login/login.spec.js",
+    "test:compras": "playwright test test/comprasTest/",
+    "test:parallel": "playwright test --workers=4",
     "report": "playwright show-report",
-    "playwright:install": "playwright install"
+    "report:open": "npx playwright show-report",
+    "install:browsers": "npx playwright install",
+    "install:deps": "npx playwright install-deps"
   },
   "keywords": [],
   "author": "",

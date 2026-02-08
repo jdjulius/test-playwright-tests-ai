@@ -1,0 +1,66 @@
+# buildspec.yml
+version: 0.2
+
+env:
+  variables:
+    NODE_VERSION: "18"
+    PLAYWRIGHT_VERSION: "1.57.0"
+    CI: "true"
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: $NODE_VERSION
+    commands:
+      - echo "Installing dependencies..."
+      - npm ci
+      - echo "Installing Playwright browsers..."
+      - npx playwright install chromium
+      - npx playwright install-deps chromium
+      
+  pre_build:
+    commands:
+      - echo "Pre-build phase started on `date`"
+      - echo "Setting up environment variables"
+      - echo "Node version:" $(node --version)
+      - echo "NPM version:" $(npm --version)
+      - echo "Playwright version:" $(npx playwright --version)
+      
+  build:
+    commands:
+      - echo "Build phase started on `date`"
+      - echo "Running Playwright tests..."
+      - npm run test
+      
+  post_build:
+    commands:
+      - echo "Post-build phase started on `date`"
+      - echo "Tests completed"
+      - |
+        if [ $CODEBUILD_BUILD_SUCCEEDING -eq 0 ]; then
+          echo "Tests failed!"
+          exit 1
+        else
+          echo "Tests passed successfully!"
+        fi
+
+artifacts:
+  files:
+    - test-results/**/*
+    - playwright-report/**/*
+  name: playwright-test-artifacts-$(date +%Y-%m-%d-%H-%M-%S)
+
+reports:
+  playwright-tests:
+    files:
+      - test-results/junit.xml
+    file-format: JUNITXML
+  playwright-coverage:
+    files:
+      - test-results/results.json
+    file-format: JSONFMT
+
+cache:
+  paths:
+    - node_modules/**/*
+    - /root/.cache/ms-playwright/**/*

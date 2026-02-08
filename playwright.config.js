@@ -1,7 +1,10 @@
 import { defineConfig, devices } from '@playwright/test';
 import dotenv from 'dotenv';
 
+// Load environment variables
 dotenv.config();
+
+const isCI = !!process.env.CI;
 
 /**
  * @see https://playwright.dev/docs/test-configuration
@@ -9,48 +12,46 @@ dotenv.config();
 export default defineConfig({
   testDir: './test',
   testMatch: '**/*.spec.js',
-  /* Global timeout for each test */
-  timeout: 60000, // 60 seconds
-  /* Global timeout for each expect() assertion */
-  expect: {
-    timeout: 30000, // 30 seconds for assertions
-  },
+  
+  // Timeouts optimizados para CI
+  timeout: isCI ? 45000 : 60000,
+  expect: { timeout: isCI ? 10000 : 30000 },
+  
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
-  /* Retry on CI only */
-  retries: process.env.CI ? 2 : 0,
-  /* Opt out of parallel tests on CI. */
-  workers: process.env.CI ? 1 : undefined,
-  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: [
-    ['html', { open: 'never' }],
-    ['json', { outputFile: 'test-results/results.json' }],
-    ['junit', { outputFile: 'test-results/junit.xml' }],
-  ],
+  
+  // Reintentos optimizados
+  retries: isCI ? 2 : 0,
+  
+  // Configuración de workers optimizada
+  workers: isCI ? 2 : undefined,
+  
+  // Solo reportes necesarios en CI
+  reporter: isCI 
+    ? [
+        ['html', { outputFolder: 'playwright-report' }],
+        ['json', { outputFile: 'test-results/results.json' }],
+        ['junit', { outputFile: 'test-results/junit.xml' }]
+      ]
+    : [['html', { open: 'never' }]],
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    /* Base URL to use in actions like `await page.goto('/')`. */
-    // baseURL: 'http://127.0.0.1:3000',
-
-    /* Collect trace for all tests (exitosos y fallidos) */
-    trace: 'on',
-
-    /* Take screenshot for all tests */
-    screenshot: 'on',
-
-    /* Record video for all tests */
-    video: 'on',
-
-    /* Navigation timeout */
-    navigationTimeout: 60000, // 1 minute
-    /* Action timeout */
-    actionTimeout: 60000, // 1 minute
-
-    /* Configuración para mostrar el navegador */
-    headless: false, // Mostrar el navegador (no headless)
-    slowMo: 500, // Ralentizar acciones para ver mejor (500ms entre acciones)
+    baseURL: process.env.BASE_URL || 'https://dev.paisabombas.app/',
+    
+    // Configuración optimizada para CI
+    headless: isCI,
+    slowMo: isCI ? 0 : 500,
+    
+    // Artifacts optimizados para CI
+    screenshot: isCI ? 'only-on-failure' : 'on',
+    video: isCI ? 'retain-on-failure' : 'on',
+    trace: isCI ? 'on-first-retry' : 'on',
+    
+    // Configuraciones adicionales para estabilidad
+    actionTimeout: 30000,
+    navigationTimeout: 30000,
   },
 
   /* Configure projects for major browsers */
